@@ -7,7 +7,7 @@ import StripControlBoard from "./StripControlBoard";
 import AddNewStrip from "./AddNewStrip.jsx";
 import React, { useState } from "react";
 import "./styles.css";
-
+//pootings
 export default function App(props) {
   const [Strips, updateStrips] = useState([]);
 
