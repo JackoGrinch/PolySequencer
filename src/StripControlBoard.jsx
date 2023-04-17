@@ -10,7 +10,7 @@ function StripControlBoard(props) {
         increment={0.1}
         lowerLimit={0}
         upperLimit={120}
-        suffix={"bpm"}
+        suffix={"beansPM"}
         decimalPlace={2}
       />
     </div>
