@@ -12,6 +12,7 @@ export default function App(props) {
   const [Strips, updateStrips] = useState([]);
 
   function addNewStrip() {
+    //Add new Strip
     const newStrip = Strips.length + 1;
     updateStrips((prevSteps) => [...Strips, { key: newStrip, value: null }]);
   }
