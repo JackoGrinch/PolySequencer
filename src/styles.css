@@ -79,3 +79,13 @@ body {
   bottom: 0;
   position: absolute;
 }
+
+.NumberBox {
+  user-select: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  width: 50px;
+  height: 20px;
+  font-size: 5px;
+}

@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-//upperLimit, lowerLimit
 function NumberBox(props) {
   const [number, setNumber] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);
+  const [dragStartingPoint, setDragStartingPoint] = useState(0);
+  const [totalDragDistance, setTotalDragDistance] = useState(0);
 
   useEffect(() => {
+    let intervalId;
+
     const handleMouseUp = () => {
       setDragging(false);
+      clearInterval(intervalId);
     };
 
     const handleMouseMove = (e) => {
@@ -16,15 +20,26 @@ function NumberBox(props) {
         const dragEnd = e.clientY;
         const difference = dragEnd - dragStart;
 
-        if (difference > 0) {
-          if (number !== props.lowerLimit) setNumber(number - props.increment);
-        } else if (difference < 0) {
-          if (number !== props.upperLimit) setNumber(number + props.increment);
-        }
+        setTotalDragDistance(dragStartingPoint - e.clientY);
 
+        if (difference > 0) {
+          setNumber((prevNumber) => prevNumber - props.increment);
+        } else if (difference < 0) {
+          setNumber((prevNumber) => prevNumber + props.increment);
+        }
         setDragStart(dragEnd);
       }
     };
+
+    if (dragging && !intervalId) {
+      intervalId = setInterval(() => {
+        if (totalDragDistance < -100) {
+          setNumber((prevNumber) => prevNumber - props.increment);
+        } else if (totalDragDistance > 100) {
+          setNumber((prevNumber) => prevNumber + props.increment);
+        }
+      }, 100);
+    }
 
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove);
@@ -32,25 +47,18 @@ function NumberBox(props) {
     return () => {
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
+      clearInterval(intervalId);
     };
-  }, [dragging, dragStart, number]);
+  }, [dragging, dragStart, totalDragDistance]);
 
   const handleMouseDown = (e) => {
     setDragging(true);
     setDragStart(e.clientY);
+    setDragStartingPoint(e.clientY);
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        padding: "10px",
-        textAlign: "center",
-        userSelect: "none",
-        cursor: "ns-resize"
-      }}
-      onMouseDown={handleMouseDown}
-    >
+    <div className="NumberBox" onMouseDown={handleMouseDown}>
       <h2>
         {number.toFixed(props.decimalPlace)} {props.suffix}
       </h2>
