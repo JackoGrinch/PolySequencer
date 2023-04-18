@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function NumberBox(props) {
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(120);
   const [dragging, setDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);
   const [dragStartingPoint, setDragStartingPoint] = useState(0);
@@ -10,6 +10,21 @@ function NumberBox(props) {
   useEffect(() => {
     let intervalId;
 
+    const increaseNumber = () => {
+      if (number >= props.upperLimit) {
+        setNumber(props.upperLimit);
+      } else {
+        setNumber((prevNumber) => prevNumber + props.increment);
+      }
+    };
+
+    const decreaseNumber = () => {
+      if (number <= props.lowerLimit) {
+        setNumber(props.lowerLimit);
+      } else {
+        setNumber((prevNumber) => prevNumber - props.increment);
+      }
+    };
     const handleMouseUp = () => {
       setDragging(false);
       clearInterval(intervalId);
@@ -19,13 +34,11 @@ function NumberBox(props) {
       if (dragging) {
         const dragEnd = e.clientY;
         const difference = dragEnd - dragStart;
-
         setTotalDragDistance(dragStartingPoint - e.clientY);
-
         if (difference > 0) {
-          setNumber((prevNumber) => prevNumber - props.increment);
+          decreaseNumber();
         } else if (difference < 0) {
-          setNumber((prevNumber) => prevNumber + props.increment);
+          increaseNumber();
         }
         setDragStart(dragEnd);
       }
@@ -34,11 +47,11 @@ function NumberBox(props) {
     if (dragging && !intervalId) {
       intervalId = setInterval(() => {
         if (totalDragDistance < -100) {
-          setNumber((prevNumber) => prevNumber - props.increment);
+          decreaseNumber();
         } else if (totalDragDistance > 100) {
-          setNumber((prevNumber) => prevNumber + props.increment);
+          increaseNumber();
         }
-      }, 100);
+      }, 10);
     }
 
     window.addEventListener("mouseup", handleMouseUp);
@@ -58,10 +71,12 @@ function NumberBox(props) {
   };
 
   return (
-    <div className="NumberBox" onMouseDown={handleMouseDown}>
-      <h2>
-        {number.toFixed(props.decimalPlace)} {props.suffix}
-      </h2>
+    <div>
+      <p className="NumberBoxLabel"> {props.labelName} </p>
+      <div className="NumberBox" onMouseDown={handleMouseDown}>
+        <p>{number.toFixed(props.decimalPlace)}</p>
+        <p> {props.suffix}</p>
+      </div>
     </div>
   );
 }
