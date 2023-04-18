@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+      // <NumberBox
+      //   increment={0.1}
+      //   lowerLimit={0}
+      //   upperLimit={240}
+      //   labelName={"Tempo"}
+      //   suffix={"BPM"}
+      //   decimalPlace={1}
+      // />
+
 function NumberBox(props) {
   const [number, setNumber] = useState(120);
   const [dragging, setDragging] = useState(false);
