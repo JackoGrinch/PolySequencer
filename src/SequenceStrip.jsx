@@ -46,14 +46,14 @@ function SequenceStrip(props) {
         className="sequencerStrip"
         style={{ backgroundColor: props.style }}
         onClick={() => {
-          props.setSelectedStrip(props.ID);
+          props.setSelectedStrip(props.strip.id);
         }}
       >
         <SequencerStripControl
           handleStepChange={updateNumberOfSteps}
           numSteps={numberOfSteps}
           audio={props.audio}
-          stripID={props.ID}
+          stripID={props.strip.id}
         />
         <div className="sequencerStepTrack">
           {stepArray.map((step) => (

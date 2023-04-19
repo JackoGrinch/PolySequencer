@@ -70,14 +70,6 @@ body {
   opacity: 0.5;
 }
 
-.StripControlBoard {
-  height: 120px;
-  background-color: lightgreen;
-  width: 100%;
-  bottom: 0;
-  position: absolute;
-}
-
 .NumberBox {
   margin: 0;
   user-select: none;
@@ -99,4 +91,23 @@ body {
   height: 10px;
   font-size: 10px;
   line-height: 10px;
+}
+
+.footerPanel {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+}
+.StripControlBoard {
+  height: 100%;
+  background-color: lightgreen;
+  width: 100%;
+}
+.stepControlBoardTab {
+  user-select: none;
+  width: 400px;
+  height: 100%;
+  background-color: beige;
 }
