@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import NumberBox from "./NumberBox";
 
 function StripControlBoard(props) {
-  const [selectedStrip, setSelectedStrip] = useState(null);
+  //const [selectedStrip, setSelectedStrip] = useState(null);
 
-  return (
-    <div className="StripControlBoard">
-
-    </div>
-  );
+  return <div className="StripControlBoard"> Strip: {props.selectedStrip}</div>;
+  
+  
 }
 
 export default StripControlBoard;

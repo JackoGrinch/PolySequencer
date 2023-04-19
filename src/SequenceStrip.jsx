@@ -9,14 +9,13 @@ function SequenceStrip(props) {
 
   function updateNumberOfSteps(x) {
     //Check not lower than 0
-
     if (x !== 0) {
       //If increasing the number of Steps
       if (x > numberOfSteps) {
         const newStep = numberOfSteps + 1;
         updateStepArray((prevSteps) => [
           ...stepArray,
-          { key: newStep, value: null }
+          { key: newStep, value: null },
         ]);
       }
       //if decreasing the number of steps
@@ -43,7 +42,13 @@ function SequenceStrip(props) {
 
   return (
     <div>
-      <div className="sequencerStrip">
+      <div
+        className="sequencerStrip"
+        style={{ backgroundColor: props.style }}
+        onClick={() => {
+          props.setSelectedStrip(props.ID);
+        }}
+      >
         <SequencerStripControl
           handleStepChange={updateNumberOfSteps}
           numSteps={numberOfSteps}

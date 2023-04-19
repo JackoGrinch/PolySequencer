@@ -44,12 +44,10 @@ body {
 
 .stripControlPanel {
   height: 100%;
-  background-color: burlywood;
 }
 .sequencerStrip {
   display: flex;
   width: 100%;
-  background-color: darkturquoise;
   height: 80px;
 }
 
