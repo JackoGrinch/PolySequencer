@@ -44,12 +44,10 @@ body {
 
 .stripControlPanel {
   height: 100%;
-  background-color: burlywood;
 }
 .sequencerStrip {
   display: flex;
   width: 100%;
-  background-color: darkturquoise;
   height: 80px;
 }
 
@@ -72,10 +70,44 @@ body {
   opacity: 0.5;
 }
 
-.StripControlBoard {
+.NumberBox {
+  margin: 0;
+  user-select: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  width: 50px;
+  height: 20px;
+  font-size: 10px;
+  line-height: 10px;
+}
+.NumberBox p {
+  margin: 0;
+}
+.NumberBoxLabel {
+  margin: 0;
+  user-select: none;
+  width: 50px;
+  height: 10px;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.footerPanel {
+  display: flex;
   height: 120px;
-  background-color: lightgreen;
   width: 100%;
   bottom: 0;
   position: absolute;
+}
+.StripControlBoard {
+  height: 100%;
+  background-color: lightgreen;
+  width: 100%;
+}
+.stepControlBoardTab {
+  user-select: none;
+  width: 400px;
+  height: 100%;
+  background-color: beige;
 }

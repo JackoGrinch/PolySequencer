@@ -1,30 +1,67 @@
 import React, { useState, useEffect } from "react";
 
-//upperLimit, lowerLimit
+      // <NumberBox
+      //   increment={0.1}
+      //   lowerLimit={0}
+      //   upperLimit={240}
+      //   labelName={"Tempo"}
+      //   suffix={"BPM"}
+      //   decimalPlace={1}
+      // />
+
 function NumberBox(props) {
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState(120);
   const [dragging, setDragging] = useState(false);
   const [dragStart, setDragStart] = useState(0);
+  const [dragStartingPoint, setDragStartingPoint] = useState(0);
+  const [totalDragDistance, setTotalDragDistance] = useState(0);
 
   useEffect(() => {
+    let intervalId;
+
+    const increaseNumber = () => {
+      if (number >= props.upperLimit) {
+        setNumber(props.upperLimit);
+      } else {
+        setNumber((prevNumber) => prevNumber + props.increment);
+      }
+    };
+
+    const decreaseNumber = () => {
+      if (number <= props.lowerLimit) {
+        setNumber(props.lowerLimit);
+      } else {
+        setNumber((prevNumber) => prevNumber - props.increment);
+      }
+    };
     const handleMouseUp = () => {
       setDragging(false);
+      clearInterval(intervalId);
     };
 
     const handleMouseMove = (e) => {
       if (dragging) {
         const dragEnd = e.clientY;
         const difference = dragEnd - dragStart;
-
+        setTotalDragDistance(dragStartingPoint - e.clientY);
         if (difference > 0) {
-          if (number !== props.lowerLimit) setNumber(number - props.increment);
+          decreaseNumber();
         } else if (difference < 0) {
-          if (number !== props.upperLimit) setNumber(number + props.increment);
+          increaseNumber();
         }
-
         setDragStart(dragEnd);
       }
     };
+
+    if (dragging && !intervalId) {
+      intervalId = setInterval(() => {
+        if (totalDragDistance < -100) {
+          decreaseNumber();
+        } else if (totalDragDistance > 100) {
+          increaseNumber();
+        }
+      }, 10);
+    }
 
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove);
@@ -32,28 +69,23 @@ function NumberBox(props) {
     return () => {
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
+      clearInterval(intervalId);
     };
-  }, [dragging, dragStart, number]);
+  }, [dragging, dragStart, totalDragDistance]);
 
   const handleMouseDown = (e) => {
     setDragging(true);
     setDragStart(e.clientY);
+    setDragStartingPoint(e.clientY);
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        padding: "10px",
-        textAlign: "center",
-        userSelect: "none",
-        cursor: "ns-resize"
-      }}
-      onMouseDown={handleMouseDown}
-    >
-      <h2>
-        {number.toFixed(props.decimalPlace)} {props.suffix}
-      </h2>
+    <div>
+      <p className="NumberBoxLabel"> {props.labelName} </p>
+      <div className="NumberBox" onMouseDown={handleMouseDown}>
+        <p>{number.toFixed(props.decimalPlace)}</p>
+        <p> {props.suffix}</p>
+      </div>
     </div>
   );
 }
