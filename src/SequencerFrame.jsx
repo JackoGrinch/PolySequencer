@@ -7,6 +7,7 @@ import StepControlBoardTab from "./StepControlBoardTab.jsx";
 function SequencerFrame(props) {
   const [Strips, updateStrips] = useState([]);
   const [selectedStrip, setSelectedStrip] = useState(0);
+  const [selectedStep, setSelectedStep] = useState(0);
 
   function Strip() {
     this.key = 0;
@@ -14,6 +15,7 @@ function SequencerFrame(props) {
     this.bpm = 120;
     this.outputLevel = 0.7;
     this.steps = [];
+    this.selectedStep = 0;
   }
 
   function addNewStrip() {
@@ -35,8 +37,16 @@ function SequencerFrame(props) {
   function selectStrip(index) {
     console.log(Strips);
     console.log("selectedStrip: " + index);
-
     setSelectedStrip(index);
+    setSelectedStep(Strips[index].selectedStep);
+  }
+
+  function selectStep(stripIndex, stepIndex) {
+    if (stripIndex !== selectedStrip) {
+      setSelectedStrip(stripIndex);
+    }
+    setSelectedStep(stepIndex);
+    Strips[stripIndex].selectedStep = stepIndex;
   }
 
   return (
@@ -50,6 +60,7 @@ function SequencerFrame(props) {
               key={strip.key}
               strip={strip}
               audio={props.audio}
+              setSelectedStep={selectStep}
             />
           </div>
         );
@@ -58,7 +69,7 @@ function SequencerFrame(props) {
       <AddNewStrip addStrip={addNewStrip} />
       <div className="footerPanel">
         <StripControlBoard selectedStrip={selectedStrip} />
-        <StepControlBoardTab />
+        <StepControlBoardTab selectedStep={selectedStep} />
       </div>
     </div>
   );

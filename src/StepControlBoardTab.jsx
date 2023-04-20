@@ -1,7 +1,11 @@
 import React from "react";
 
 function StepControlBoardTab(props) {
-  return <div class="stepControlBoardTab"></div>;
+  return (
+    <div className="stepControlBoardTab">
+      <p>Step {props.selectedStep}</p>
+    </div>
+  );
 }
 
 export default StepControlBoardTab;
