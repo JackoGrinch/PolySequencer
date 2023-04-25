@@ -3,6 +3,7 @@ import SequenceStrip from "./SequenceStrip.jsx";
 import StripControlBoard from "./StripControlBoard";
 import AddNewStrip from "./AddNewStrip.jsx";
 import StepControlBoardTab from "./StepControlBoardTab.jsx";
+import FooterControlBoard from "./FooterControlBoard.jsx";
 
 function SequencerFrame(props) {
   const [Strips, updateStrips] = useState([]);
@@ -67,10 +68,9 @@ function SequencerFrame(props) {
       })}
 
       <AddNewStrip addStrip={addNewStrip} />
-      <div className="footerPanel">
-        <StripControlBoard selectedStrip={selectedStrip} />
-        <StepControlBoardTab selectedStep={selectedStep} />
-      </div>
+      
+      <FooterControlBoard selectedStrip={selectedStrip} selectedStep={selectedStep}/>
+      
     </div>
   );
 }

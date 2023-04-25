@@ -111,3 +111,13 @@ body {
   height: 100%;
   background-color: beige;
 }
+
+.ResizableFooter {
+  height: 200px; /* initial height */
+  border-bottom: 3px solid #ccc; /* resizable border */
+}
+
+.ResizeFooterHandle {
+  height: 10px;
+  background-color: #ccc;
+}
