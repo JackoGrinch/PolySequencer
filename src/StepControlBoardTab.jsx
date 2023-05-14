@@ -3,7 +3,7 @@ import React from "react";
 function StepControlBoardTab(props) {
   return (
     <div className="stepControlBoardTab">
-      <p>Step {props.selectedStep}</p>
+      <p>Step {props.selectedStep + 1}</p>
     </div>
   );
 }

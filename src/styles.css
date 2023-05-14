@@ -9,6 +9,25 @@ body {
   height: 50px;
   width: 50px;
 }
+.ToggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50px;
+  width: 70px;
+}
+.ToggleButtonLabel {
+  margin: 0;
+  height: 25px;
+  line-height: 12px;
+}
+.ToggleButtonArea {
+  margin: 0;
+  background-color: black;
+  height: 25px;
+  width: 25px;
+}
 
 .sequencerControlPanel {
   width: 100%;
